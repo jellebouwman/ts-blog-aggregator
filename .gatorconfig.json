@@ -1,4 +1,4 @@
 {
   "current_user_name": "boots",
-  "db_url": "postgres://example"
+  "db_url": "postgres://postgres:@localhost:5432/gator?sslmode=disable"
 }
