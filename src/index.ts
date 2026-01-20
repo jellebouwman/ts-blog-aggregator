@@ -4,10 +4,12 @@ import { loginCommand } from "./commands/login";
 import { addCommandToRegistry } from "./commands";
 import { resetCommand } from "./commands/reset";
 import { usersCommand } from "./commands/users";
+import { aggregateCommand } from "./commands/aggregate";
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
 
+  addCommandToRegistry(commandsRegistry, "agg", aggregateCommand);
   addCommandToRegistry(commandsRegistry, "login", loginCommand);
   addCommandToRegistry(commandsRegistry, "register", registerCommand);
   addCommandToRegistry(commandsRegistry, "reset", resetCommand);
