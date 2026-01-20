@@ -1,6 +1,6 @@
 import type { CommandsRegistry, CommandHandler } from "src/types";
 
-export function registerCommand(
+export function addCommandToRegistry(
   registry: CommandsRegistry,
   cmdName: string,
   handler: CommandHandler,
@@ -9,9 +9,3 @@ export function registerCommand(
 
   return registry;
 }
-
-function runCommand(
-  registry: CommandsRegistry,
-  cmdName: string,
-  ...args: string[]
-) {}

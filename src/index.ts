@@ -1,12 +1,13 @@
-import { createInterface } from "readline";
-import { readConfig, setUser } from "./config";
 import { CommandsRegistry } from "./types";
-import { registerCommand } from "./commands";
+import { registerCommand } from "./commands/register";
 import { loginCommand } from "./commands/login";
-function main() {
+import { addCommandToRegistry } from "./commands";
+
+async function main() {
   const commandsRegistry: CommandsRegistry = {};
 
-  registerCommand(commandsRegistry, "login", loginCommand);
+  addCommandToRegistry(commandsRegistry, "login", loginCommand);
+  addCommandToRegistry(commandsRegistry, "register", registerCommand);
 
   const commandLineArguments = process.argv;
 
@@ -19,8 +20,13 @@ function main() {
   const commandEntry = commandsRegistry[command];
 
   if (commandEntry) {
-    commandEntry(command, ...restArguments);
+    await commandEntry(command, ...restArguments);
+  } else {
+    console.log("Unknown command, exiting.");
+    process.exit(1);
   }
+
+  process.exit(0);
 }
 
 main();

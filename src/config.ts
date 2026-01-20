@@ -32,11 +32,15 @@ export function readConfig(): Config {
 
 const CONFIG_FILE_NAME = ".gatorconfig.json";
 function getConfigFilePath(): string {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const rootPath = path.join(__dirname, "..");
+  // Boot.dev has an misconfiguration where it consistently looks at the home dir for
+  // the config file, and not in the project directory
+  // This code might be needed later
+  // const __filename = fileURLToPath(import.meta.url);
+  // const __dirname = dirname(__filename);
+  // const rootPath = path.join(__dirname, "");
 
-  return `${rootPath}/${CONFIG_FILE_NAME}`;
+  // For now, it should be a simple home dir path.
+  return `${os.homedir()}/${CONFIG_FILE_NAME}`;
 }
 
 function writeConfig(config: Config): void {
