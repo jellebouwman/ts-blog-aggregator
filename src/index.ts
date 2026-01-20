@@ -5,11 +5,15 @@ import { addCommandToRegistry } from "./commands";
 import { resetCommand } from "./commands/reset";
 import { usersCommand } from "./commands/users";
 import { aggregateCommand } from "./commands/aggregate";
+import { addFeedCommand } from "./commands/add-feed";
+import { feedsCommand } from "./commands/feeds";
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
 
+  addCommandToRegistry(commandsRegistry, "addfeed", addFeedCommand);
   addCommandToRegistry(commandsRegistry, "agg", aggregateCommand);
+  addCommandToRegistry(commandsRegistry, "feeds", feedsCommand);
   addCommandToRegistry(commandsRegistry, "login", loginCommand);
   addCommandToRegistry(commandsRegistry, "register", registerCommand);
   addCommandToRegistry(commandsRegistry, "reset", resetCommand);
