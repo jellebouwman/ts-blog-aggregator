@@ -20,6 +20,11 @@ export async function getUser(name: string) {
   return result;
 }
 
+export async function getUsers() {
+  const allUsers = await db.select().from(users);
+  return allUsers;
+}
+
 export async function resetUsersTable() {
   await db.execute(sql`TRUNCATE TABLE users RESTART IDENTITY CASCADE`);
 }

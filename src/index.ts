@@ -3,6 +3,7 @@ import { registerCommand } from "./commands/register";
 import { loginCommand } from "./commands/login";
 import { addCommandToRegistry } from "./commands";
 import { resetCommand } from "./commands/reset";
+import { usersCommand } from "./commands/users";
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -10,6 +11,7 @@ async function main() {
   addCommandToRegistry(commandsRegistry, "login", loginCommand);
   addCommandToRegistry(commandsRegistry, "register", registerCommand);
   addCommandToRegistry(commandsRegistry, "reset", resetCommand);
+  addCommandToRegistry(commandsRegistry, "users", usersCommand);
 
   const commandLineArguments = process.argv;
 
