@@ -1,5 +1,5 @@
 import { setUser } from "src/config";
-import { createUser, getUser } from "src/lib/db/queries/users";
+import { createUser } from "src/lib/db/queries/users";
 
 export async function registerCommand(commandName: string, ...args: string[]) {
   if (args.length === 0 || args[0] == "") {

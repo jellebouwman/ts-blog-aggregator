@@ -2,12 +2,14 @@ import { CommandsRegistry } from "./types";
 import { registerCommand } from "./commands/register";
 import { loginCommand } from "./commands/login";
 import { addCommandToRegistry } from "./commands";
+import { resetCommand } from "./commands/reset";
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
 
   addCommandToRegistry(commandsRegistry, "login", loginCommand);
   addCommandToRegistry(commandsRegistry, "register", registerCommand);
+  addCommandToRegistry(commandsRegistry, "reset", resetCommand);
 
   const commandLineArguments = process.argv;
 
