@@ -1,3 +1,5 @@
+import { feeds } from "./lib/db/schema";
+
 export type UserCommandHandler = (
   cmdName: string,
   username: User,
@@ -15,3 +17,5 @@ export type User = {
   id: string;
   name: string;
 };
+
+export type Feed = typeof feeds.$inferSelect;
