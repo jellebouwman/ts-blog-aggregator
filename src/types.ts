@@ -1,3 +1,9 @@
+type UserCommandHandler = (
+  cmdName: string,
+  user: User,
+  ...args: string[]
+) => Promise<void>;
+
 export type CommandHandler = (
   command: string,
   ...args: string[]

@@ -16,6 +16,20 @@ export async function createFeed(name: string, url: string, userId: string) {
   return result;
 }
 
+export async function getFeedByUrl(url: string) {
+  const [result] = await db
+    .select()
+    .from(feeds)
+    .where(eq(feeds.url, url))
+    .limit(1);
+
+  if (result === undefined) {
+    throw new Error(`Feed with url '${url}' does not exist`);
+  }
+
+  return result;
+}
+
 export async function getFeeds() {
   const allFeeds = await db
     .select({

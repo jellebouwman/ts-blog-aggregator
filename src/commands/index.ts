@@ -1,4 +1,3 @@
-import { feeds } from "src/lib/db/schema";
 import type { CommandsRegistry, CommandHandler } from "src/types";
 
 export function addCommandToRegistry(
@@ -11,7 +10,6 @@ export function addCommandToRegistry(
   return registry;
 }
 
-type Feed = typeof feeds.$inferSelect;
-export function printFeed(feed: Feed) {
-  console.log({ feed });
+export function printFeed<T extends { name: string; url: string }>(feed: T) {
+  console.log(`Feed '${feed.name}' at ${feed.url}`);
 }

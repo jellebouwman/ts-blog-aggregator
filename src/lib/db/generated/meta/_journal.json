@@ -15,6 +15,13 @@
       "when": 1768940037885,
       "tag": "0001_little_stature",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768987244087,
+      "tag": "0002_clumsy_spot",
+      "breakpoints": true
     }
   ]
 }

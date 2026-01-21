@@ -7,6 +7,8 @@ import { usersCommand } from "./commands/users";
 import { aggregateCommand } from "./commands/aggregate";
 import { addFeedCommand } from "./commands/add-feed";
 import { feedsCommand } from "./commands/feeds";
+import { followCommand } from "./commands/follow";
+import { followingCommand } from "./commands/following";
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -14,6 +16,8 @@ async function main() {
   addCommandToRegistry(commandsRegistry, "addfeed", addFeedCommand);
   addCommandToRegistry(commandsRegistry, "agg", aggregateCommand);
   addCommandToRegistry(commandsRegistry, "feeds", feedsCommand);
+  addCommandToRegistry(commandsRegistry, "follow", followCommand);
+  addCommandToRegistry(commandsRegistry, "following", followingCommand);
   addCommandToRegistry(commandsRegistry, "login", loginCommand);
   addCommandToRegistry(commandsRegistry, "register", registerCommand);
   addCommandToRegistry(commandsRegistry, "reset", resetCommand);
