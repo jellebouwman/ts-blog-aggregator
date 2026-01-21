@@ -11,7 +11,12 @@ export type CommandHandler = (
   ...args: string[]
 ) => Promise<void>;
 
-export type CommandsRegistry = Record<string, CommandHandler>;
+export type CommandInfo = {
+  handler: CommandHandler;
+  description: string;
+};
+
+export type CommandsRegistry = Record<string, CommandInfo>;
 
 export type User = {
   id: string;

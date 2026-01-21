@@ -16,8 +16,12 @@ export function addCommandToRegistry(
   registry: CommandsRegistry,
   cmdName: string,
   handler: CommandHandler,
+  description: string,
 ) {
-  registry[cmdName] = handler;
+  registry[cmdName] = {
+    handler,
+    description,
+  };
 
   return registry;
 }

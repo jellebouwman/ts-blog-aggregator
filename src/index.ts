@@ -20,35 +20,86 @@ async function main() {
 
   addCommandToRegistry(
     commandsRegistry,
-    "addfeed",
-    middlewareLoggedIn(addFeedCommand),
+    "register",
+    registerCommand,
+    "Create a new user account",
   );
-  addCommandToRegistry(commandsRegistry, "agg", aggregateCommand);
   addCommandToRegistry(
     commandsRegistry,
-    "browse",
-    middlewareLoggedIn(browseCommand),
+    "login",
+    loginCommand,
+    "Log in as an existing user",
   );
-  addCommandToRegistry(commandsRegistry, "feeds", feedsCommand);
+  addCommandToRegistry(
+    commandsRegistry,
+    "users",
+    usersCommand,
+    "List all registered users",
+  );
+  addCommandToRegistry(
+    commandsRegistry,
+    "addfeed",
+    middlewareLoggedIn(addFeedCommand),
+    "Add a new RSS feed and follow it",
+  );
+  addCommandToRegistry(
+    commandsRegistry,
+    "feeds",
+    feedsCommand,
+    "List all available feeds",
+  );
   addCommandToRegistry(
     commandsRegistry,
     "follow",
     middlewareLoggedIn(followCommand),
+    "Follow an existing feed",
+  );
+  addCommandToRegistry(
+    commandsRegistry,
+    "unfollow",
+    middlewareLoggedIn(unfollowCommand),
+    "Unfollow a feed",
   );
   addCommandToRegistry(
     commandsRegistry,
     "following",
     middlewareLoggedIn(followingCommand),
+    "List feeds you are following",
   );
-  addCommandToRegistry(commandsRegistry, "login", loginCommand);
-  addCommandToRegistry(commandsRegistry, "register", registerCommand);
-  addCommandToRegistry(commandsRegistry, "reset", resetCommand);
   addCommandToRegistry(
     commandsRegistry,
-    "unfollow",
-    middlewareLoggedIn(unfollowCommand),
+    "browse",
+    middlewareLoggedIn(browseCommand),
+    "View latest posts from followed feeds",
   );
-  addCommandToRegistry(commandsRegistry, "users", usersCommand);
+  addCommandToRegistry(
+    commandsRegistry,
+    "agg",
+    aggregateCommand,
+    "Start continuous feed aggregation",
+  );
+  addCommandToRegistry(
+    commandsRegistry,
+    "reset",
+    resetCommand,
+    "Reset all user data (WARNING: destructive)",
+  );
+
+  // Help command
+  addCommandToRegistry(
+    commandsRegistry,
+    "help",
+    async () => {
+      console.log("Available commands:\n");
+      Object.entries(commandsRegistry)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .forEach(([cmd, info]) => {
+          console.log(`  ${cmd.padEnd(12)} - ${info.description}`);
+        });
+      console.log("\nUsage: npm start <command> [arguments]");
+    },
+    "Show this help message",
+  );
 
   const commandLineArguments = process.argv;
 
@@ -56,14 +107,16 @@ async function main() {
 
   if (command === undefined) {
     console.log("Not enough arguments were provided.");
+    console.log('Run "npm start help" for available commands.');
     process.exit(1);
   }
   const commandEntry = commandsRegistry[command];
 
   if (commandEntry) {
-    await commandEntry(command, ...restArguments);
+    await commandEntry.handler(command, ...restArguments);
   } else {
     console.log("Unknown command, exiting.");
+    console.log('Run "npm start help" for available commands.');
     process.exit(1);
   }
 
