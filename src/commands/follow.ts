@@ -1,12 +1,14 @@
-import { readConfig } from "src/config";
 import { createFeedFollow } from "src/lib/db/queries/feed-follow";
 import { getFeedByUrl } from "src/lib/db/queries/feeds";
-import { getUser } from "src/lib/db/queries/users";
+import { User } from "src/types";
 
-export async function followCommand(_commandName: string, url: string) {
+export async function followCommand(
+  _commandName: string,
+  user: User,
+  url: string,
+) {
   const feed = await getFeedByUrl(url);
-  const currentUser = await getUser(readConfig().currentUserName);
-  const feedFollow = await createFeedFollow(currentUser.id, feed.id);
+  const feedFollow = await createFeedFollow(user.id, feed.id);
 
   console.log(
     `User '${feedFollow.userName}' now follows feed '${feedFollow.feedName}'!`,

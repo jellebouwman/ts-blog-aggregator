@@ -1,11 +1,10 @@
-import { readConfig } from "src/config";
 import { getFeedFollowsByUser } from "src/lib/db/queries/feed-follow";
+import { User } from "src/types";
 
-export async function followingCommand() {
-  const username = readConfig().currentUserName;
-  const feedFollows = await getFeedFollowsByUser(username);
+export async function followingCommand(_commandName: string, user: User) {
+  const feedFollows = await getFeedFollowsByUser(user);
 
-  console.log(`${username} is following these feeds:`);
+  console.log(`${user.name} is following these feeds:`);
 
   feedFollows.forEach((feedFollow) => {
     console.log(`- ${feedFollow.feedName}`);

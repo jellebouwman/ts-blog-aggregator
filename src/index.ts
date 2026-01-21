@@ -1,23 +1,38 @@
+import {
+  addCommandToRegistry,
+  addFeedCommand,
+  aggregateCommand,
+  feedsCommand,
+  followCommand,
+  followingCommand,
+  loginCommand,
+  registerCommand,
+  resetCommand,
+  usersCommand,
+} from "./commands";
+import { middlewareLoggedIn } from "./middleware";
 import { CommandsRegistry } from "./types";
-import { registerCommand } from "./commands/register";
-import { loginCommand } from "./commands/login";
-import { addCommandToRegistry } from "./commands";
-import { resetCommand } from "./commands/reset";
-import { usersCommand } from "./commands/users";
-import { aggregateCommand } from "./commands/aggregate";
-import { addFeedCommand } from "./commands/add-feed";
-import { feedsCommand } from "./commands/feeds";
-import { followCommand } from "./commands/follow";
-import { followingCommand } from "./commands/following";
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
 
-  addCommandToRegistry(commandsRegistry, "addfeed", addFeedCommand);
+  addCommandToRegistry(
+    commandsRegistry,
+    "addfeed",
+    middlewareLoggedIn(addFeedCommand),
+  );
   addCommandToRegistry(commandsRegistry, "agg", aggregateCommand);
   addCommandToRegistry(commandsRegistry, "feeds", feedsCommand);
-  addCommandToRegistry(commandsRegistry, "follow", followCommand);
-  addCommandToRegistry(commandsRegistry, "following", followingCommand);
+  addCommandToRegistry(
+    commandsRegistry,
+    "follow",
+    middlewareLoggedIn(followCommand),
+  );
+  addCommandToRegistry(
+    commandsRegistry,
+    "following",
+    middlewareLoggedIn(followingCommand),
+  );
   addCommandToRegistry(commandsRegistry, "login", loginCommand);
   addCommandToRegistry(commandsRegistry, "register", registerCommand);
   addCommandToRegistry(commandsRegistry, "reset", resetCommand);

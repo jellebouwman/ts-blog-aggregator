@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "..";
 import { feedFollows, feeds, users } from "../schema";
 import { getUser } from "./users";
+import { User } from "src/types";
 
 export async function createFeedFollow(userId: string, feedId: string) {
   const [result] = await db
@@ -37,8 +38,7 @@ export async function createFeedFollow(userId: string, feedId: string) {
   return feedFollowWithNames;
 }
 
-export async function getFeedFollowsByUser(username: string) {
-  const { id: userId } = await getUser(username);
+export async function getFeedFollowsByUser(user: User) {
   const feedFollowWithNames = await db
     .select({
       id: feedFollows.id,
@@ -50,7 +50,7 @@ export async function getFeedFollowsByUser(username: string) {
     .from(feedFollows)
     .innerJoin(feeds, eq(feedFollows.feedId, feeds.id))
     .innerJoin(users, eq(feedFollows.userId, users.id))
-    .where(eq(feedFollows.userId, userId));
+    .where(eq(feedFollows.userId, user.id));
 
   return feedFollowWithNames;
 }
