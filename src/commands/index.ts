@@ -2,6 +2,7 @@ import type { CommandsRegistry, CommandHandler } from "src/types";
 
 export * from "./add-feed";
 export * from "./aggregate";
+export * from "./browse";
 export * from "./feeds";
 export * from "./follow";
 export * from "./following";

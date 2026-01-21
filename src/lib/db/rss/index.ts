@@ -9,7 +9,7 @@ type RSSFeed = {
   };
 };
 
-type RSSItem = {
+export type RSSItem = {
   title: string;
   link: string;
   description: string;
@@ -18,6 +18,14 @@ type RSSItem = {
 
 function isNonEmptyString(value: any): value is string {
   return typeof value === "string" && value !== "";
+}
+
+export function parseRSSDate(dateString: string): Date {
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    throw new Error(`Invalid date format: ${dateString}`);
+  }
+  return date;
 }
 
 export async function fetchFeed(feedURL: string): Promise<RSSFeed> {

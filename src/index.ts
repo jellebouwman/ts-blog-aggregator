@@ -2,6 +2,7 @@ import {
   addCommandToRegistry,
   addFeedCommand,
   aggregateCommand,
+  browseCommand,
   feedsCommand,
   followCommand,
   followingCommand,
@@ -23,6 +24,11 @@ async function main() {
     middlewareLoggedIn(addFeedCommand),
   );
   addCommandToRegistry(commandsRegistry, "agg", aggregateCommand);
+  addCommandToRegistry(
+    commandsRegistry,
+    "browse",
+    middlewareLoggedIn(browseCommand),
+  );
   addCommandToRegistry(commandsRegistry, "feeds", feedsCommand);
   addCommandToRegistry(
     commandsRegistry,
