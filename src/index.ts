@@ -8,6 +8,7 @@ import {
   loginCommand,
   registerCommand,
   resetCommand,
+  unfollowCommand,
   usersCommand,
 } from "./commands";
 import { middlewareLoggedIn } from "./middleware";
@@ -36,6 +37,11 @@ async function main() {
   addCommandToRegistry(commandsRegistry, "login", loginCommand);
   addCommandToRegistry(commandsRegistry, "register", registerCommand);
   addCommandToRegistry(commandsRegistry, "reset", resetCommand);
+  addCommandToRegistry(
+    commandsRegistry,
+    "unfollow",
+    middlewareLoggedIn(unfollowCommand),
+  );
   addCommandToRegistry(commandsRegistry, "users", usersCommand);
 
   const commandLineArguments = process.argv;

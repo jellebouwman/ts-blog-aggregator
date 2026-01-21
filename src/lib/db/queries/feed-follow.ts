@@ -54,3 +54,16 @@ export async function getFeedFollowsByUser(user: User) {
 
   return feedFollowWithNames;
 }
+
+export async function deleteFeedFollow(feedId: string, userId: string) {
+  const [deletedFeedFollowId] = await db
+    .delete(feedFollows)
+    .where(eq(feedFollows.feedId, feedId) && eq(feedFollows.userId, userId))
+    .returning({ deletedId: feedFollows.id });
+
+  if (deletedFeedFollowId === undefined) {
+    throw new Error(
+      `Could not delete feedFollow record with feedId '${feedId}' userId '${userId}'`,
+    );
+  }
+}

@@ -8,6 +8,7 @@ export * from "./following";
 export * from "./login";
 export * from "./register";
 export * from "./reset";
+export * from "./unfollow";
 export * from "./users";
 
 export function addCommandToRegistry(
